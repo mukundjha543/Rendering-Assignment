@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
-from OpenGL.GLUT import *  # Ensure GLUT is imported
+from OpenGL.GLUT import *
 import random
 
 def setup_lighting():
@@ -26,7 +26,7 @@ def draw_sphere(x, y, z, color):
     glPushMatrix()
     glTranslate(x, y, z)
     glColor3fv(color)
-    glutSolidSphere(0.5, 32, 32)  # Now correctly referenced
+    glutSolidSphere(0.5, 32, 32)
     glPopMatrix()
 
 def draw_grid():
@@ -47,15 +47,20 @@ def main():
     glTranslatef(0.0, 0.0, -20)
 
     setup_scene()
-
-    sphere_color = [1.0, 0.0, 0.0] # Initial color of the spheres
+    #intial colour of sphere
+    sphere_color = [1.0, 0.0, 0.0] 
 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            elif event.type == pygame.KEYDOWN:
+                 # Check if the key is the Esc key
+                if event.key == pygame.K_ESCAPE: 
+                    pygame.quit()
+                    quit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
                 # Change sphere color to a random color on mouse click
                 sphere_color = [random.random() for _ in range(3)]
 
